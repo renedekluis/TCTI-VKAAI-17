@@ -49,7 +49,7 @@ for k in range(40,70):
 	
 print(knn.Run(testSet, 59))
 '''
-Beste K: 59
+Beste K: 59 - 66% correct
 '''
 
 
