@@ -1,0 +1,5 @@
+========================
+Exercise 4.1 — NOR-Gate.
+========================
+Determine weights and a threshold for a perceptron that would act as a NOR-gate
+with three inputs.

@@ -1,0 +1,46 @@
+========================
+Exercise 4.3 — Programming NNs.
+========================
+
+In this exercise you are going to build a (naive) implementation of a neural networks 
+and use it to classify a number of data sets.
+
+
+
+
+A) Neuron
+-----------
+Write a class to represent a neuron and its functions. Learning capabilities are
+not necessary yet. Use this class to implement the neuron of exercise 4.1 and the
+network of exercise 4.2.
+
+
+
+B) Delta Rule
+-----------
+Add to the neuron class an update function. This function uses the delta rule to
+updates its weights. The function has as input the desired activation of the node.
+Test your new function to train the neuron of exercise 4.1.
+
+
+
+C) Backpropagation
+-----------
+Add backpropagation to your program. Create the XOR network from the sheets.
+Initialize the weights with random values. Train the network.
+
+
+
+D) Iris dataset
+-----------
+Create a neural network, using your own code, that is able to classify correctly a
+high percentage of flowers from the iris datasetb. Make sure you use a train set and
+a test set.
+Report the shape of your network and its score on the test set.
+
+
+
+E) Weather data [optional]
+-----------
+Adjust your implementation to work on the weather data from the previous chapter.
+Can your NN perform as well as (or better than) your k-NN implementation?

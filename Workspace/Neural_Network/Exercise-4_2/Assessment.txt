@@ -1,0 +1,6 @@
+========================
+Exercise 4.2 — Neural ADDER.
+========================
+
+Make an adder out of perceptrons. Draw the network and give the corresponding
+weights and biases.
