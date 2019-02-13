@@ -10,7 +10,8 @@ class Neuron:
 		
 	def Run(self, inputs):
 		result = 0
-		for idx, weight in enumerate(self.weights):
+		for idx, input in enumerate(inputs):
 			result += inputs[idx] * self.weights[idx]
+
 		result = 1 if result >= self.threshold else 0
 		return result

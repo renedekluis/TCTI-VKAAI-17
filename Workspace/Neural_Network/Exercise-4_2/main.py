@@ -36,7 +36,7 @@ logicGateFunctions = [
 
 for gate in logicGateFunctions:
 	print('\n',gate[0],'\n------')
-	for option in twoInputOptions:
+	for option in threeInputOptions:
 		print(option, gate[1](option))
 
 

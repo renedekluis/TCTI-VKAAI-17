@@ -3,32 +3,98 @@ from neuron import *
 
 class LogicGates:
 	def __init__(self):
-		self.norGate  = Neuron([-0.5, -0.5],  0  )
-		self.orGate   = Neuron([ 0.5,  0.5],  0.5)
-		self.andGate  = Neuron([ 0.5,  0.5],  1  )
-		self.nandGate = Neuron([-0.5, -0.5], -0.5)
+		pass
 
 
-
+	'''
+	Brief: 
+		This function runs a logic Nor.
+	
+	Parameters:
+		inputs: List of inputs for the gate
+	
+	Return:
+		Output of the logic gate
+	'''	
 	def LogicNor(self, inputs):
-		return self.norGate.Run(inputs)
+		weights = []
+		for input in inputs:
+			weights.append( -(1/len(inputs)) )
+		return Neuron(weights, 0 ).Run(inputs)
 
-
+	'''
+	Brief: 
+		This function runs a logic Or.
+	
+	Parameters:
+		inputs: List of inputs for the gate
+	
+	Return:
+		Output of the logic gate
+	'''	
 	def LogicOr(self, inputs):
-		return self.orGate.Run(inputs)
+		weights = []
+		for input in inputs:
+			weights.append( 0.5 )
+		return Neuron(weights, 0.5 ).Run(inputs)
 
-
+	'''
+	Brief: 
+		This function runs a logic And.
+	
+	Parameters:
+		inputs: List of inputs for the gate
+	
+	Return:
+		Output of the logic gate
+	'''	
 	def LogicAnd(self, inputs):
-		return self.andGate.Run(inputs)
+		weights = []
+		for input in inputs:
+			weights.append( (1/len(inputs)) )
+		andGate = Neuron(weights,  1  )
+		return andGate.Run(inputs)
 
-
+	'''
+	Brief: 
+		This function runs a logic Nand.
+	
+	Parameters:
+		inputs: List of inputs for the gate
+	
+	Return:
+		Output of the logic gate
+	'''	
 	def LogicNand(self, inputs):
-		return self.nandGate.Run(inputs)
-		
+		weights = []
+		treshold = 0
+		for idx, input in enumerate(inputs):
+			weights.append( -(1/len(inputs)) )
+			if idx < len(inputs)-1:
+				treshold += -(1/len(inputs))
+		return Neuron(weights, treshold ).Run(inputs)
+	
+	'''
+	Brief: 
+		This function runs a logic Xor.
+		This gate works for two and three inputs.
+	
+	Parameters:
+		inputs: List of inputs for the gate
+	
+	Return:
+		Output of the logic gate
+	'''	
 	def LogicXor(self, inputs):
-		orResult   = self.LogicOr(inputs)
-		nandResult = self.LogicNand(inputs)
-		return self.LogicAnd([orResult,nandResult])
+		result = 0
+		if len(inputs) == 2:
+			orResult   = self.LogicOr(inputs)
+			nandResult = self.LogicNand(inputs)
+			return self.LogicAnd([orResult,nandResult])
+		if len(inputs) == 3:
+			norResult1  = self.LogicXor([inputs[0], inputs[1]])
+			result  = self.LogicXor([norResult1, inputs[2]])
+		return result
 	
 
 	
@@ -74,7 +140,7 @@ class LogicGates:
 		a     = inputs[0]
 		b     = inputs[1]
 		carry = inputs[2]
-		sum_carry1 = self.LogicHalfAdder([a,b])
+		sum_carry1 = self.LogicHalfAdder([a, b])
 		sum_carry2 = self.LogicHalfAdder([sum_carry1[0],carry])
 		
 		carryOut = self.LogicOr([sum_carry1[1], sum_carry2[1]])
