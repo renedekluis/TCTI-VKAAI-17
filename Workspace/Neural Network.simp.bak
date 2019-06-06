@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<sim-project version="10.65" multi-file="no">
+  <meta>
+    <name>Neural Network</name>
+    <authors> René de Kluis</authors>
+    <description />
+  </meta>
+  <counters models="1">
+    <entity-names>
+      <counter>
+        <item-type type-id="class" type="UmlClass" />
+        <value>3</value>
+      </counter>
+    </entity-names>
+    <entity-ids>
+      <counter>
+        <item-type type-id="class" type="UmlClass" />
+        <value>4</value>
+      </counter>
+      <counter>
+        <item-type type-id="relationship" type="UmlAssociation" />
+        <value>3</value>
+      </counter>
+      <counter>
+        <item-type type-id="" type="AbstractElementGroup" />
+        <value>2</value>
+      </counter>
+    </entity-ids>
+    <diagrams>
+      <counter>
+        <type>SoftwareIdeasModeler.Core.Diagrams.UmlDiagrams.UmlActivityDiagram</type>
+        <value>1</value>
+      </counter>
+      <counter>
+        <type>SoftwareIdeasModeler.Core.Diagrams.UmlDiagrams.UmlClassDiagram</type>
+        <value>1</value>
+      </counter>
+    </diagrams>
+    <fields>
+      <counter>
+        <type>SoftwareIdeasModeler.Core.DiagramItems.Fields.AttributeField</type>
+        <value>16</value>
+      </counter>
+    </fields>
+  </counters>
+  <alias-groups />
+  <management>
+    <persons>
+      <person id="P44ae9e170bea449799e380d23fa4e9a3">
+        <first-name />
+        <last-name />
+        <role />
+        <e-mail />
+        <phone-number />
+        <description />
+        <color>#00000000</color>
+      </person>
+    </persons>
+    <tasks />
+    <requirements />
+    <issues />
+    <to-dos />
+  </management>
+  <glossary />
+  <types default="UML">
+    <type-sets>
+      <type-set file="UmlTypes.xml" />
+    </type-sets>
+    <custom-types>
+      <type id="list" tid="" name="list" description="" />
+    </custom-types>
+  </types>
+  <filters />
+  <macros />
+  <items />
+  <models>
+    <model id="p31288e20fa7747d1a61cec920a866f31_138832551" name="Model 1" namespace="" order-index="1">
+      <meta>
+        <authors>
+          <author> </author>
+        </authors>
+        <description />
+        <creation-date>03/11/2019 13:51:44</creation-date>
+        <change-date>01/01/0001 00:00:00</change-date>
+        <revision-count>0</revision-count>
+        <version />
+      </meta>
+      <abstract-items />
+      <sub-models />
+      <diagram type="uml-activity" id="p2c96f6642a3f4ed49896723203eb7ff9_382736550" name="ActivityDiagram" order-index="1" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-special-indicators="false" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false">
+        <style>
+          <background-color index="1" color="#FFFFFFFF" />
+          <background-color index="2" color="#FFFFFFFF" />
+          <background-type type="solid" />
+        </style>
+        <meta>
+          <authors>
+            <author> </author>
+          </authors>
+          <description />
+          <creation-date>03/11/2019 13:51:47</creation-date>
+          <change-date>03/11/2019 13:51:47</change-date>
+          <revision-count>0</revision-count>
+          <version />
+        </meta>
+        <abstract-items />
+        <layer name="Default" visible="true" enabled="true" locked="false" />
+      </diagram>
+      <diagram type="uml-class" id="p6cf2be378f864ead8424a8cfd3edf806_668091377" name="Class Diagram" order-index="2" overview-order-index="0" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-special-indicators="false" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false">
+        <style>
+          <background-color index="1" color="#FFFFFFFF" />
+          <background-color index="2" color="#FFFFFFFF" />
+          <background-type type="solid" />
+        </style>
+        <meta>
+          <authors>
+            <author> </author>
+          </authors>
+          <description />
+          <creation-date>03/11/2019 13:52:05</creation-date>
+          <change-date>03/11/2019 13:56:14</change-date>
+          <revision-count>0</revision-count>
+          <version />
+        </meta>
+        <abstract-items>
+          <item id="di283761257205365235" cid="C001" type="class" name="Neuron" style-class="" visibility="package" change-tracking-state="added" creator="P44ae9e170bea449799e380d23fa4e9a3" creation-date="03/11/2019 13:52:13">
+            <style class="default" />
+            <attributes>
+              <attribute id="a9a0a8937ea70485abf63d6f0b7073868311" cid="ELEM001" name="name" type="" type-id="" visibility="private">
+                <style class="default" />
+              </attribute>
+              <attribute id="ad4a9faf3e67344d093a82fdb1efe9fae968" cid="ELEM002" name="weights" type="list" type-id="list" visibility="private">
+                <style class="default" />
+              </attribute>
+              <attribute id="a2b3af598a4994a218edcf995282542d3208" cid="ELEM003" name="BiasWeight" type="" type-id="" visibility="private">
+                <style class="default" />
+              </attribute>
+              <attribute id="a32dbd54ee5e642ac92c3aebcac563a24868" cid="ELEM004" name="LearnRate" type="" type-id="" visibility="private">
+                <style class="default" />
+              </attribute>
+            </attributes>
+          </item>
+          <item id="di971849263404278137" cid="C002" type="class" name="Neural Network" style-class="" visibility="package" change-tracking-state="added" creator="P44ae9e170bea449799e380d23fa4e9a3" creation-date="03/11/2019 13:52:19">
+            <style class="default" />
+            <attributes>
+              <attribute id="a405d439acc5c4a08896bfd4a6966b506517" cid="ELEM005" name="name" type="" type-id="" visibility="private">
+                <style class="default" />
+              </attribute>
+              <attribute id="a397d03cdec344c1386674cf1154098de677" cid="ELEM006" name="numInputs" type="" type-id="" visibility="private">
+                <style class="default" />
+              </attribute>
+              <attribute id="a45edf74c568a4d43a3b3e454d46eaf2e817" cid="ELEM007" name="HiddenLayerList" type="" type-id="" visibility="private">
+                <style class="default" />
+              </attribute>
+              <attribute id="a7f41a5178c8b4500b62bc9d8b19a0b0b791" cid="ELEM008" name="NumOutPuts" type="" type-id="" visibility="private">
+                <style class="default" />
+              </attribute>
+              <attribute id="a6a8573d56a2e4b7ea092227399fdd4e0470" cid="ELEM009" name="LearnRate" type="" type-id="" visibility="private">
+                <style class="default" />
+              </attribute>
+              <attribute id="a755979c2932948b99c251ba29f192d36671" cid="ELEM010" name="OutputNeuron" type="" type-id="" visibility="private">
+                <style class="default" />
+              </attribute>
+            </attributes>
+          </item>
+          <item id="di328084973119367216" cid="C003" type="class" name="HiddenLayer" style-class="" visibility="package" change-tracking-state="added" creator="P44ae9e170bea449799e380d23fa4e9a3" creation-date="03/11/2019 13:52:29">
+            <style class="default" />
+            <attributes>
+              <attribute id="af241dcd465ab411a81a3add6cd447fa7731" cid="ELEM011" name="name" type="" type-id="" visibility="private">
+                <style class="default" />
+              </attribute>
+              <attribute id="ad7660b3205b141d296a2d7644bec0fab923" cid="ELEM012" name="numInputs" type="" type-id="" visibility="private">
+                <style class="default" />
+              </attribute>
+              <attribute id="a011bd0ba72a44da8a75420c9ebf4790c771" cid="ELEM013" name="NumNeurons" type="" type-id="" visibility="private">
+                <style class="default" />
+              </attribute>
+              <attribute id="aab4b7a1e672343d1b2b400c6f9297f06837" cid="ELEM014" name="NumOutputs" type="" type-id="" visibility="private">
+                <style class="default" />
+              </attribute>
+              <attribute id="aad48ee6b025b4dfb89df56d54dbc56bb559" cid="ELEM015" name="LearnRate" type="" type-id="" visibility="private">
+                <style class="default" />
+              </attribute>
+            </attributes>
+          </item>
+          <item id="di580270374888415892" cid="REL001" type="relationship" name="" style-class="" visibility="package" change-tracking-state="added" creator="P44ae9e170bea449799e380d23fa4e9a3" creation-date="03/11/2019 13:56:11" from="di971849263404278137" to="di328084973119367216">
+            <style class="default" />
+            <relation from="di971849263404278137" to="di328084973119367216">
+              <start-role id="" name="" navigability="" association-type="association" visibility="private" />
+              <end-role id="" name="" navigability="yes" association-type="association" visibility="private" />
+            </relation>
+          </item>
+          <item id="di330027894407075862" cid="REL002" type="relationship" name="" style-class="" visibility="package" change-tracking-state="added" creator="P44ae9e170bea449799e380d23fa4e9a3" creation-date="03/11/2019 13:56:14" from="di328084973119367216" to="di283761257205365235">
+            <style class="default" />
+            <relation from="di328084973119367216" to="di283761257205365235">
+              <start-role id="" name="" navigability="" association-type="association" visibility="private" />
+              <end-role id="" name="" navigability="yes" association-type="association" visibility="private" />
+            </relation>
+          </item>
+        </abstract-items>
+        <layer name="Default" visible="true" enabled="true" locked="false">
+          <item id="di283761257205365235" iid="748c981e0b5e4d89a9126219d60642d6" creation-date="03/11/2019 13:52:13" order-index="0" type="entity">
+            <layout ax="479" ay="205" awidth="140" aheight="160" x="479" y="205" width="140" height="160" />
+            <class />
+          </item>
+          <item id="di971849263404278137" iid="3a228d7069064856af2f75e0826dabe2" creation-date="03/11/2019 13:52:19" order-index="1" type="entity">
+            <layout ax="816" ay="205" awidth="140" aheight="160" x="816" y="205" width="140" height="160" />
+            <class />
+          </item>
+          <item id="di328084973119367216" iid="d716935bec414b589b04e9cd679e8de7" creation-date="03/11/2019 13:52:29" order-index="2" type="entity">
+            <layout ax="816" ay="476" awidth="140" aheight="160" x="816" y="476" width="140" height="160" />
+            <class />
+          </item>
+          <item id="di580270374888415892" iid="a8afd9822eea498493430ba3fcb8eb5b" creation-date="03/11/2019 13:56:11" order-index="3" type="relation">
+            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="25,-15" end-multiplicity-position="25,15" line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="886" y1="365" x2="886" y2="476" start-border-pos="0.625" end-border-pos="0.125" name-position="0,0">
+              <points>
+                <point x="886" y="365" />
+                <point x="886" y="476" />
+              </points>
+            </layout>
+            <relation from="di971849263404278137" from-iid="3a228d7069064856af2f75e0826dabe2" to="di328084973119367216" to-iid="d716935bec414b589b04e9cd679e8de7" />
+          </item>
+          <item id="di330027894407075862" iid="49da099d04654c9c8347d724596dcfb1" creation-date="03/11/2019 13:56:14" order-index="4" type="relation">
+            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="25,-15" end-multiplicity-position="25,15" line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="816" y1="556" x2="549" y2="365" start-border-pos="0.875" end-border-pos="0.625" name-position="0,0">
+              <points>
+                <point x="816" y="556" />
+                <point x="548" y="555" />
+                <point x="549" y="365" />
+              </points>
+            </layout>
+            <relation from="di328084973119367216" from-iid="d716935bec414b589b04e9cd679e8de7" to="di283761257205365235" to-iid="748c981e0b5e4d89a9126219d60642d6" />
+          </item>
+        </layer>
+      </diagram>
+    </model>
+  </models>
+  <documents />
+  <document-templates />
+</sim-project>
