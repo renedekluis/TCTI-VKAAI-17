@@ -5,21 +5,22 @@ class Neuron:
 	def __init__(self, name, numInputs, numOutputs, learnRate):
 		self.name = name
 		self.weights   			= []
-		#self.bias      			= r.random()
-		self.bias      		= 0.5
+		self.bias      			= r.random()
+		#self.bias      		= 0.5
 		self.learnRate  		= learnRate
 		self.newWeights         = []
-		self.deltaError 		= 0
+		self.delta 				= 0
 		self.lastKnownInputs 	= []
 		self.lastKnownOutputs	= []
 		self.numOutputs 		= numOutputs
 		self.numInputs 			= numInputs
+		self.currDerr			= 0
 		
 		for i in range(numInputs):
-			self.weights.append(0.5)
-			#self.weights.append(r.random())
+			#self.weights.append(0.5)
+			self.weights.append(r.random())
 			self.lastKnownInputs.append(0)
-			
+		#print(self.name,self.weights)
 			
 			
 		
@@ -30,6 +31,7 @@ class Neuron:
 		print('\t\tLearnRate:        ', self.learnRate )
 		print('\t\tlastKnownInputs:  ', self.lastKnownInputs )
 		print('\t\tlastKnownOutputs: ', self.lastKnownOutputs )
+		print('\t\tCurrent Derrecitive: ', self.currDerr )
 	
 	
 	
@@ -58,11 +60,11 @@ class Neuron:
 		if not self.Check(inputs):
 			print('Ammount inputs not equal to neuron inputs')
 			return [0]
-		
-		totalInput = self.GetInput(inputs)
-		self.lastKnownInputs = inputs;
-		result = self.Activate(totalInput)
-		self.lastKnownOutputs = result
+
+		totalInput 				= self.GetInput(inputs)
+		self.lastKnownInputs 	= inputs;
+		result 					= self.Activate(totalInput)
+		self.lastKnownOutputs 	= result
 		return result
 	
 	
@@ -77,25 +79,35 @@ class Neuron:
 	
 	
 	def GetDeltaError(self):
-		return self.deltaError;
+		return self.delta;
 	
 	
 	
 	def GetDericative(self,input):
-		return 1-math.tanh(math.tanh(input))
+		d = 1-math.tanh(math.tanh(input))
+		self.currDerr = d
+		return d
 	
 	
 		
-	def BackPropagation(self, weight, input, desiredOutput, inputs):
-		actualOutput = self.lastKnownOutputs
-		dericative = self.GetDericative(self.GetInput(inputs))
-		self.deltaError = dericative * (desiredOutput - actualOutput)
-		return ( weight + (self.learnRate * input * self.deltaError) )
+	def BackPropagation(self, weight, activated, desiredOutput, inputs):
+		actualOutput 		= self.lastKnownOutputs
+		totInputs 			= self.GetInput(inputs)
+		dericative 			= self.GetDericative(totInputs)
+		self.delta 			= dericative * (desiredOutput - actualOutput)
+		result = ( weight + (self.learnRate * activated * self.delta) )
+		#print(result,' = ',weight,'+',self.learnRate,'*',activated,'*', self.delta)
+		#print('DeltaK:',self.delta)
+		return result
 
 		
 		
 	def BackPropagation2(self, weight, activation, deltaError ):
-		return weight + self.learnRate * activation * deltaError
+		result = (weight + self.learnRate * activation * deltaError)
+		self.delta = deltaError
+		#print(result,' = ',weight,'+',self.learnRate,'*',activation,'*', deltaError)
+		#print('Delta(',self.name,'):',self.delta)
+		return result
 	
 	
 	def Train(self, inputs, deltaOutput, isOutput = False):
@@ -103,10 +115,7 @@ class Neuron:
 			print("Error: Inputs Not equal to Weight Ammount")
 			return []
 		
-		inputs.append(1) #Add Bias to inputs
-		self.weights.append(self.bias) #Add bias Weight
 		self.newWeights         = []
-		#print('Neuron - Train - ',inputs)
 		for idx, input in enumerate(inputs):
 			w = self.weights[idx]
 			newW = 0.5
@@ -117,14 +126,13 @@ class Neuron:
 			
 			self.newWeights.append(newW)
 		
-		self.weights = self.weights[:-1]
-		inputs.pop()
 		return self.newWeights
 
 
 	def UpdateWeights(self):
-		self.weights = self.newWeights[:-1]
-		self.bias    = self.newWeights[-1]
+		if 'H0' not in self.name:	
+			self.weights = self.newWeights
+			self.bias    = self.newWeights[-1]
 		
 		
 

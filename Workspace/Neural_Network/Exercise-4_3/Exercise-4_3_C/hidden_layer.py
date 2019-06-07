@@ -13,17 +13,17 @@ class HiddenLayer:
 		self.numInputs  = numInputs
 		self.numNeurons = numNeurons
 		self.numOutputs = numOutputs
-		self.neurons = []
-		self.learnRate = learnRate
+		self.neurons 	= []
+		self.learnRate 	= learnRate
+		self.errors 	= []
 		self.allWeightsInLayer = []
-		self.errors = []
+
 		
 		for idx in range(numNeurons):
-			newNeuron = Neuron( (self.name+'-'+str(idx)), numInputs, numOutputs, learnRate )
+			newNeuron = Neuron( (self.name+str(idx)), numInputs, numOutputs, learnRate )
 			self.allWeightsInLayer.append(newNeuron.GetWeights())
 			self.neurons.append(newNeuron)
-			
-		#print('weights in layer',self.name,':',self.allWeightsInLayer)
+		
 		
 	def Show(self):
 		print('Name:',self.name)
@@ -66,15 +66,33 @@ class HiddenLayer:
 		return result
 	
 	
+	def TrainHidden(self, layerWeights, lastErrorDelta):
+		errorDeltas = []
+		for delta in lastErrorDelta:
+			allInputs = []
+			newWeights = []
+			for idx, n in enumerate(self.neurons):
+				sumOfError = 0
+				nInVals = n.lastKnownInputs[:]
+				nWeights = n.weights[:]
+				nWeights.append(n.bias)
+				for idx, w in enumerate(nWeights):
+					sumOfError += w*delta
+				input 		= n.GetInput(nInVals)
+				allInputs.append(nInVals)
+				dericative 	= n.GetDericative(input)
+				#print('Delta Error: ',dericative,'*',sumOfError)
+				deltaError 	= dericative*sumOfError
+				newWeights.append(n.Train(nInVals, deltaError))
+				errorDeltas.append(deltaError)
+		return errorDeltas
 	
 	
 	def Train(self, inputList, outputList):
 		newWeights = []
-		print('HiddenLayer - Train - ',inputList,outputList,len(self.neurons))
+		#print('HiddenLayer - Train - ',inputList,outputList,len(self.neurons))
 		for neuronIdx, neuron in enumerate(self.neurons):
-			
 			if self.name == "Out":
-				
 				newWeights.append(neuron.Train(inputList[neuronIdx], outputList[neuronIdx], True))
 			else:
 				newWeights.append(neuron.Train(inputList[neuronIdx], outputList[neuronIdx]))

@@ -5,6 +5,7 @@ import copy
 
 class NeuralNetwork:
 	def __init__(self, name, numInputs, hiddenLayers, numOutputs, learnRate):
+		#print(name)
 		self.name         	 	= name
 		self.numInputs    	 	= numInputs
 		self.hiddenLayerPattern = hiddenLayers
@@ -13,10 +14,7 @@ class NeuralNetwork:
 		self.hiddenLayers 	 	= []
 		self.outputErrors		= []
 		
-		
-		#ammountInputs 	= numInputs
 		ammountOutputs 	= numOutputs
-		#print(hiddenLayers)
 		for idx, ammountNeurons in enumerate(hiddenLayers):	
 			if idx < len(hiddenLayers)-1:
 				if idx == 0:
@@ -30,9 +28,10 @@ class NeuralNetwork:
 		
 		inputs = hiddenLayers[-1]
 		self.hiddenLayers.append(HiddenLayer('Out',inputs,numOutputs,0,0.1))
-
-		#for layer in self.hiddenLayers:
-		#	layer.Show()
+		startInput = []
+		for x in range(numInputs):
+			startInput.append(0)
+		self.FeedForward(startInput)
 			
 
 	
@@ -59,16 +58,19 @@ class NeuralNetwork:
 		return result
 	
 	def CalcError(self, layerWeights, lastErrorDelta):
-		
+		print('layerWeights:  ',layerWeights)
+		print('lastErrorDelta:',lastErrorDelta)
 		errorDeltas = []
-		#print('CalcError - ',layerWeights,lastErrorDelta)
 		for delta in lastErrorDelta:
 			for idx, neuronWeights in enumerate(layerWeights):
-				tot = 0
+				sumOfError = 0
 				for weight in neuronWeights:
-					tot += weight*delta
-				errorDeltas.append(tot)
-		#print('CalcError - ',errorDeltas)
+					sumOfError += weight*delta
+				print('Sum of Error:',sumOfError)
+				
+				errorDeltas.append(sumOfError)
+		
+		
 		return errorDeltas
 	
 	
@@ -78,20 +80,22 @@ class NeuralNetwork:
 			return []
 		
 		self.FeedForward(inputList)
-		allInputs = self.GetLastKnownInputs()
-		allWeights = self.GetWeights()
-
-		newWeights = []
-		self.outputErrors = []
-		lastDeltaError = []
+		allInputs 			= self.GetLastKnownInputs()
+		allWeights 			= self.GetWeights()
+		newWeights 			= []
+		lastDeltaError 		= []
+		test = []
 		for layerIdx, hiddenLayer in reversed(list(enumerate(self.hiddenLayers))):
+			#print('\n\n\nTrain layer',hiddenLayer.name,'(',layerIdx,'/',len(allWeights)-1,')')
+			#print('-'*7)
 			if hiddenLayer.name == "Out":
-				newWeights = [hiddenLayer.Train(allInputs[-1],OutputList)] + newWeights
-				lastDeltaError = hiddenLayer.GetDeltaErrors()
+				newWeights 		= [hiddenLayer.Train(allInputs[-1],OutputList)] + newWeights
+				lastDeltaError 	= hiddenLayer.GetDeltaErrors()
 			else:
-				lastDeltaError = self.CalcError(allWeights[layerIdx],lastDeltaError)
-				newWeights = [hiddenLayer.Train(allInputs[layerIdx],lastDeltaError)] + newWeights
-		
+				if hiddenLayer.name != 'H0':
+					lastDeltaError = hiddenLayer.TrainHidden(allWeights[layerIdx],lastDeltaError)
+				
+			#print('Delta Error:',lastDeltaError)
 		for hiddenLayer in self.hiddenLayers:
 			hiddenLayer.UpdateWeights()
 		
