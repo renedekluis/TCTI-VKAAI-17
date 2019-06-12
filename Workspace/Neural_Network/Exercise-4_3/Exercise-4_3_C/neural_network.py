@@ -36,8 +36,6 @@ class NeuralNetwork:
 
 	
 	
-	
-	
 	def FeedForward(self, firstInput):
 		inputs = firstInput
 		for layer in self.hiddenLayers:
@@ -86,8 +84,6 @@ class NeuralNetwork:
 		lastDeltaError 		= []
 		test = []
 		for layerIdx, hiddenLayer in reversed(list(enumerate(self.hiddenLayers))):
-			#print('\n\n\nTrain layer',hiddenLayer.name,'(',layerIdx,'/',len(allWeights)-1,')')
-			#print('-'*7)
 			if hiddenLayer.name == "Out":
 				newWeights 		= [hiddenLayer.Train(allInputs[-1],OutputList)] + newWeights
 				lastDeltaError 	= hiddenLayer.GetDeltaErrors()
@@ -95,90 +91,11 @@ class NeuralNetwork:
 				if hiddenLayer.name != 'H0':
 					lastDeltaError = hiddenLayer.TrainHidden(allWeights[layerIdx],lastDeltaError)
 				
-			#print('Delta Error:',lastDeltaError)
 		for hiddenLayer in self.hiddenLayers:
 			hiddenLayer.UpdateWeights()
 		
 		return newWeights
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	def GetWeightsToOutputLayer(self):
-		weights = []
-		for idx, output in enumerate(self.outputNeurons):
-			weights.append(output.GetWeights())
-		return weights
-
-		
-		
-	def TrainOutputLayer(self, allInputs, OutputList):
-		#print('Training Output - inputs:',allInputs,'\tOutputs',OutputList)
-		self.outputErrors = []
-		newWeights = []
-		for idx, output in enumerate(OutputList):
-			newWeights = self.outputNeurons[idx].Train(allInputs[-1], output)
-			self.outputErrors.append(self.outputNeurons[idx].GetError())
-		return newWeights
-
-		
-		
-	def GetInputValues(self, inputList):
-		result = []
-		if len(self.hiddenLayers) > 0:
-			for hiddenLayer in self.hiddenLayers:
-				result.append(hiddenLayer.GetLastKnownInputs())
-		for out in self.outputNeurons:
-			result.append(out.GetLastKnownInputs())
-		return result
-	
-	
-	def Train2(self, inputList, OutputList):
-		if len(inputList) is not self.numInputs or len(OutputList) is not self.numOutputs:
-			print('Incorrect ammout of inputs or outputs')
-			return []
-		
-		self.Run(inputList)
-		
-		allInputs = self.GetInputValues(inputList)
-
-		newOutputWeights = self.TrainOutputLayer(allInputs, OutputList)
-		
-		#print('\n\n\nSTART TRAINING HIDDEN LAYERS\n')
-		weightsToNextLayer = self.GetWeightsToOutputLayer()
-		lastError = self.outputErrors
-		for layerIdx, hiddenLayer in reversed(list(enumerate(self.hiddenLayers))):
-			#print('CLASS NeuralNetwork',lastError)
-			if layerIdx == len(self.hiddenLayers)-1:
-				weightsToNextLayer = hiddenLayer.Train(allInputs[layerIdx], weightsToNextLayer, lastError, self.outputNeurons, True)
-				lastError = hiddenLayer.GetDeltaError()
-			else:
-				weightsToNextLayer = hiddenLayer.Train(allInputs[layerIdx], weightsToNextLayer, lastError, self.hiddenLayers[layerIdx+1])
-				lastError = self.hiddenLayers[layerIdx+1].GetDeltaError()
-			
-		for hiddenLayer in self.hiddenLayers:
-			hiddenLayer.UpdateWeights()
-
-	
-	def Run(self, inputList):
-		input = inputList
-		self.lastKnownInputs = [inputList]
-		if len(self.hiddenLayers) > 0:
-			for hiddenLayer in self.hiddenLayers:
-				input = hiddenLayer.Run(input)
-				self.lastKnownInputs.append(input)
-		
-		result = []
-		for output in self.outputNeurons:
-			result.append(output.Run(input))
-		self.lastKnownInputs.append(result)
-		return result
 		
 
 	def Show(self):
