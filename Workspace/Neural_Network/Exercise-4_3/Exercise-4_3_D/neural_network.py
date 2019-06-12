@@ -82,12 +82,10 @@ class NeuralNetwork:
 		self.FeedForward(inputList)
 		allInputs 			= self.GetLastKnownInputs()
 		allWeights 			= self.GetWeights()
-		newWeights 			= []
 		lastDeltaError 		= []
-		test = []
 		for layerIdx, hiddenLayer in reversed(list(enumerate(self.hiddenLayers))):
 			if hiddenLayer.name == "Out":
-				newWeights 		= [hiddenLayer.Train(allInputs[-1],OutputList)] + newWeights
+				hiddenLayer.Train(allInputs[-1],OutputList)
 				lastDeltaError 	= hiddenLayer.GetDeltaErrors()
 			else:
 				if hiddenLayer.name != 'H0':
@@ -96,7 +94,6 @@ class NeuralNetwork:
 		for hiddenLayer in self.hiddenLayers:
 			hiddenLayer.UpdateWeights()
 		
-		return newWeights
 
 		
 

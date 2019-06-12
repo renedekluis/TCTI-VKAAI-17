@@ -96,8 +96,6 @@ class Neuron:
 		dericative 			= self.GetDericative(totInputs)
 		self.delta 			= dericative * (desiredOutput - actualOutput)
 		result = ( weight + (self.learnRate * activated * self.delta) )
-		#print(result,' = ',weight,'+',self.learnRate,'*',activated,'*', self.delta)
-		#print('DeltaK:',self.delta)
 		return result
 
 		
@@ -105,8 +103,6 @@ class Neuron:
 	def BackPropagation2(self, weight, activation, deltaError ):
 		result = (weight + self.learnRate * activation * deltaError)
 		self.delta = deltaError
-		#print(result,' = ',weight,'+',self.learnRate,'*',activation,'*', deltaError)
-		#print('Delta(',self.name,'):',self.delta)
 		return result
 	
 	
@@ -125,7 +121,6 @@ class Neuron:
 				newW = self.BackPropagation2(w, input, deltaOutput)
 			
 			self.newWeights.append(newW)
-		
 		return self.newWeights
 
 
