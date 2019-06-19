@@ -24,7 +24,7 @@ Pseudo code van Wikipedia:
 	
 	@return	One individual
 '''
-def createIndividual(length, min, max):
+def CreateIndividual(length, min, max):
 	individuals = []
 	for x in range(length):
 		individuals.append(random.randint(min, max))
@@ -43,10 +43,10 @@ def createIndividual(length, min, max):
 	
 	@return	A population
 '''
-def createPopulation(amountIndividuals, length, min, max):
+def CreatePopulation(amountIndividuals, length, min, max):
 	population = []
 	for x in range(amountIndividuals):
-		population.append(createIndividual(length, min, max))
+		population.append(CreateIndividual(length, min, max))
 	return population
 
 
@@ -61,10 +61,10 @@ def createPopulation(amountIndividuals, length, min, max):
 	
 	@return	Sorted Population
 '''
-def sortGeneration(population, expectedSummed, expectedMultiplied):
+def SortGeneration(population, expectedSummed, expectedMultiplied):
 	fitnessList = []
 	for individual in population:
-		fitnessList.append(fitness(individual, expectedSummed, expectedMultiplied))
+		fitnessList.append(Fitness(individual, expectedSummed, expectedMultiplied))
 	
 	individuals = []
 	for fit,individual in sorted(zip(fitnessList,population)):
@@ -82,7 +82,7 @@ def sortGeneration(population, expectedSummed, expectedMultiplied):
 	
 	@return	New Population
 '''	
-def createNewGeneration(population, keepBestAmount):
+def CreateNewGeneration(population, keepBestAmount):
 	for individual in population[keepBestAmount:]:
 		index = random.randint(0, len(individual)-1)
 		individual[index] = ( 1 if individual[index] == 0 else  0 )
@@ -98,7 +98,7 @@ def createNewGeneration(population, keepBestAmount):
 	
 	@return	Fitness
 '''	
-def fitness(individual, expectedSum, expectedMultiply):
+def Fitness(individual, expectedSum, expectedMultiply):
 	sum 		= 0
 	multiply 	= 0
 	for index in range(len(individual)):
@@ -117,7 +117,7 @@ def fitness(individual, expectedSum, expectedMultiply):
 	
 	@return	boolean if all items are the same
 '''	
-def allSame(itemList):
+def AllSame(itemList):
 	return all(x == itemList[0] for x in itemList)
 
 
@@ -140,7 +140,7 @@ expectedMultiply 		= 360	# Expected multiplied value
 maxGenerationsAmount 	= 100	# Maximum generations amount
 FitnessList 			= []	# List to keep track of past fitness results
 FitnessCheckAmmount 	= 15	# Times the fitness has to be the same to be called 'Best'
-population 				= createPopulation(100, 10, 0, 1) # The population
+population 				= CreatePopulation(100, 10, 0, 1) # The population
 
 for x in range(FitnessCheckAmmount):
 	FitnessList.append(99)
@@ -148,13 +148,13 @@ for x in range(FitnessCheckAmmount):
 cnt = 0
 for generation in range(maxGenerationsAmount):
 	cnt+=1
-	population = sortGeneration(population, expectedSum, expectedMultiply)
-	population = createNewGeneration(population, 10)
-	f = fitness(population[0], expectedSum, expectedMultiply)
+	population = SortGeneration(population, expectedSum, expectedMultiply)
+	population = CreateNewGeneration(population, 10)
+	f = Fitness(population[0], expectedSum, expectedMultiply)
 	FitnessList.append(f)
 	if len(FitnessList) > FitnessCheckAmmount:
 		FitnessList = FitnessList[1:]
-	if allSame(FitnessList):
+	if AllSame(FitnessList):
 		print('Best answer:        ', population[0])
 		print('Fitness:            ', FitnessList[-1] )
 		print('Generations needed: ',cnt)
